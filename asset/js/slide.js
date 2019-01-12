@@ -1,4 +1,5 @@
 (function ($) {
+
     var x_position = 0, current_slide = 0, first = 0;
     var s_width, s_length;
 
@@ -29,28 +30,29 @@
 
     });
 
+    $(window).on('load',function(){
+        $("#s_button .before").on("click", function () {
 
-    $("#s_button .before").on("click", function () {
+            if (current_slide > 0) {
+                x_position = x_position + s_width;
+                $(".slide-row").animate({ "margin-left": x_position }, 500);
+                current_slide--;
+                s_navi_current(current_slide);
 
-        if (current_slide > 0) {
-            x_position = x_position + s_width;
-            $(".slide-row").animate({ "margin-left": x_position }, 500);
-            current_slide--;
-            s_navi_current(current_slide);
+            }
 
-        }
+        })
 
-    })
+        $("#s_button .next").on("click", function () {
 
-    $("#s_button .next").on("click", function () {
+            if (current_slide < (s_length - 1)) {
+                x_position = x_position - s_width;
+                $(".slide-row").animate({ "margin-left": x_position }, 500);
+                current_slide++;
+                s_navi_current(current_slide);
+            }
 
-        if (current_slide < (s_length - 1)) {
-            x_position = x_position - s_width;
-            $(".slide-row").animate({ "margin-left": x_position }, 500);
-            current_slide++;
-            s_navi_current(current_slide);
-        }
-
+        })
     })
 
 
