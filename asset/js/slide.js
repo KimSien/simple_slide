@@ -1,7 +1,20 @@
-(function ($) {
 
-    var x_position = 0, current_slide = 0, first = 0;
-    var s_width, s_length;
+var _slide = _slide || {
+    _setting : '',
+    run : {},
+    s_navi_current :{},
+    s_message: {},
+    put_message: {},
+    s_navi: {}
+};
+
+var slide = _slide;
+
+var x_position = 0, current_slide = 0, first = 0;
+var s_width, s_length,numbers=0;
+
+_slide.run = function(){
+
 
     $(window).on('load resize', function () {
 
@@ -20,15 +33,18 @@
         if (first == 0) {
             // Slide Navi make
             for (let index = 0; index < s_length; index++) {
-                s_navi(index);
+                _slide.s_navi(index);
             }
             // Slide Message make
-            s_message();
-            put_message(current_slide);
+            _slide.s_message();
+            _slide.put_message(current_slide);
         }
         first = 1;
 
     });
+
+}
+
 
     $(window).on('load',function(){
         $("#s_button .before").on("click", function () {
@@ -37,7 +53,7 @@
                 x_position = x_position + s_width;
                 $(".slide-row").animate({ "margin-left": x_position }, 500);
                 current_slide--;
-                s_navi_current(current_slide);
+                _slide.s_navi_current(current_slide);
 
             }
 
@@ -49,22 +65,22 @@
                 x_position = x_position - s_width;
                 $(".slide-row").animate({ "margin-left": x_position }, 500);
                 current_slide++;
-                s_navi_current(current_slide);
+                _slide.s_navi_current(current_slide);
             }
 
         })
     })
 
 
-    function s_navi_current(numbers) {
+    _slide.s_navi_current = function(numbers) {
 
         $("#slide-thumbnail li").removeClass("current");
         $("#navi-" + (numbers)).addClass("current");
-        put_message(numbers);
+        _slide.put_message(numbers);
 
     }
 
-    function s_navi(numbers) {
+    _slide.s_navi = function(numbers) {
 
         _template = "<li id='navi-" + numbers + "'>" + numbers + "</li>";
 
@@ -73,7 +89,7 @@
 
             x_position = -(s_width * numbers)
             $(".slide-row").animate({ "margin-left": -(s_width * numbers) }, 500);
-            s_navi_current(numbers);
+            _slide.s_navi_current(numbers);
             current_slide = numbers;
 
         });
@@ -84,18 +100,17 @@
 
     }
 
-    function s_message(){
+    _slide.s_message = function(){
         message_list = $(".slide-message li");
         console.log(message_list);
     }
 
-    function put_message(num){
+    _slide.put_message = function(num){
         $("#slide-message-view").html(message_list[num]);
     }
 
 
     // slide animation
-    numbers = 0;
     setInterval(function(){
 
         numbers ++ ;        
@@ -104,10 +119,10 @@
         x_position = -(s_width * numbers)
 
         $(".slide-row").animate({ "margin-left": -(s_width * numbers) }, 500);
-        s_navi_current(numbers);
+        _slide.s_navi_current(numbers);
 
         current_slide = numbers;
     },3000);
 
 
-}(jQuery))
+
