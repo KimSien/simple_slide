@@ -48,10 +48,12 @@ _slide.run = function (_array) {
             // Slide Message make
             _slide.s_message();
             _slide.put_message(_slide.current_slide);
+
+            _slide.set_animation();
+
         }
         _slide.first = 1;
 
-        _slide.set_animation();
     });
 
 }
