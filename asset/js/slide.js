@@ -93,4 +93,21 @@
         $("#slide-message-view").html(message_list[num]);
     }
 
+
+    // slide animation
+    numbers = 0;
+    setInterval(function(){
+
+        numbers ++ ;        
+        if(numbers > 2){numbers=0}
+        
+        x_position = -(s_width * numbers)
+
+        $(".slide-row").animate({ "margin-left": -(s_width * numbers) }, 500);
+        s_navi_current(numbers);
+
+        current_slide = numbers;
+    },3000);
+
+
 }(jQuery))
