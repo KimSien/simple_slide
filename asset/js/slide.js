@@ -93,7 +93,7 @@ _slide.s_navi_current = function (num) {
 
 _slide.s_navi = function (num) {
 
-    _template = "<li id='navi-" + num + "'>" + num + "</li>";
+    _template = "<li id='navi-" + num + "'>" + (num+1) + "</li>";
 
     $("#slide-thumbnail").append(_template);
     $("#navi-" + num).on("click", function () {
@@ -126,8 +126,10 @@ _slide.set_animation = function () {
     if(_slide.tempo > 0){
         setInterval(function () {
 
+            _slide.numbers = _slide.current_slide;
+
             _slide.numbers++;
-            if (_slide.numbers > 2) { _slide.numbers = 0 }
+            if (_slide.numbers >= _slide.s_length) { _slide.numbers = 0 }
 
             _slide.x_position = -(_slide.s_width * _slide.numbers)
 
